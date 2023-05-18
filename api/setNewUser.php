@@ -6,31 +6,31 @@
 
     $username = $data["username"]; 
     $password = $data["password"]; 
-    $repassword = $data["repassword"]; 
-    if ($password == $re_password && strlen($password) > 6 && strlen($re_password) > 6) {
-        $sql = "SELECT * FROM user  WHERE username = '$username' AND password = '$password'";
-        $sqlInsert = "INSERT INTO user (username, password, role, avatar) VALUES ('$username', '$password', '0', 'https://static.vecteezy.com/system/resources/previews/013/042/571/original/default-avatar-profile-icon-social-media-user-photo-in-flat-style-vector.jpg')";
-        $result = $conn->query($sql);
-        if (result) {
-            $data = array(
-                "message" => "Đăng ký đúng rùi",
-            );
+
+    $sqlCheckUser = "SELECT * FROM user  WHERE username = '$username'";
+    // echo  $sqlCheckUser;
+    // echo "----------------------------------------------------------------";
+    $checkUser = $conn->query($sqlCheckUser);
+
+    if($checkUser->num_rows > 0) {
+        echo json_encode(array(
+            "message" => "Tài khoản bạn đăng ký đã tồn tại trong hệ thống! Vui lòng thử tài khoản khác",
+        ));
+    } else {
+        $sqlInsertUser = "INSERT INTO user (username, password, role, avatar) VALUES ('$username', '$password', '0', 'https://static.vecteezy.com/system/resources/previews/013/042/571/original/default-avatar-profile-icon-social-media-user-photo-in-flat-style-vector.jpg')";
+        $result = $conn->query($sqlInsertUser);
+        if ($result) {
+            echo json_encode(array(
+                "message" => "success",
+            ));
         } else {
             echo json_encode(array(
-                "fail" => "Lỗi rùi",
+                "message" => "fail",
             ));
         }
-    } elseif (strlen($password) <= 6 || strlen($re_password) <= 6) {
-        $data = array(
-            "message" => "độ dài > 6",
-        );
-    } elseif ($password != $re_password || strlen($password) > 6) {
-        echo json_encode(array(
-            "fail" => "pass không trùng rùi",
-        ));
     }
 
-    // echo json_encode($products);
+    
     $conn->close();
 
 ?>
