@@ -9,8 +9,6 @@
     $sql = "SELECT * FROM user  WHERE username = '$username' AND password = '$password'";
     $result = $conn->query($sql);
 
-    // $products = array();
-
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             $user = array(
@@ -20,7 +18,7 @@
                 "email" => $row["email"],
                 );
             $data = array(
-                "message" => "Đăng nhập đúng rùi ocn trai",
+                "message" => "Đăng nhập đúng rùi",
                 "user" => $user,
             );
         }

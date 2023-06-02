@@ -1,15 +1,12 @@
 <?php
 
     include "DBConfig.php";
-
     $data = json_decode(file_get_contents('php://input'), true);
 
     $username = $data["username"]; 
     $password = $data["password"]; 
 
     $sqlCheckUser = "SELECT * FROM user  WHERE username = '$username'";
-    // echo  $sqlCheckUser;
-    // echo "----------------------------------------------------------------";
     $checkUser = $conn->query($sqlCheckUser);
 
     if($checkUser->num_rows > 0) {
@@ -30,7 +27,7 @@
         }
     }
 
-    
+
     $conn->close();
 
 ?>
