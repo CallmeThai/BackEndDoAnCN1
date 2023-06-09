@@ -16,16 +16,10 @@
             }
             $sqlUpdate = "UPDATE cart SET quantityProductCart = '$quantityProductCart' + 1 WHERE idUser = '$idUser' AND idProduct = '$idProduct'";
             $conn->query($sqlUpdate);
-        
-    
-        
         } else {
             $sql = "INSERT INTO cart (`idUser`, `idProduct`, `quantityProductCart`) VALUES ($idUser, $idProduct, 1)";
             $conn->query($sql);
-            
-    
         }
-    
     }
 
     $conn->close();
