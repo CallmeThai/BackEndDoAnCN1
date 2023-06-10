@@ -10,9 +10,15 @@
         while ($row = $resultSelectOrders->fetch_assoc()) {
             $order = array(
             "idOrder" => $row["idOrder"],
-            "fullname" => $row["fullname"],
+            "idUser" => $row["idUser"],
             "dateOrder" => $row["dateOrder"],
+            "fullname" => $row["fullname"],
+            "address" => $row["address"],
+            "phone" => $row["phone"],
+            "email" => $row["email"],
+            "payment" => $row["payment"],
             "status" => $row["status"],
+            "totalPrice" => $row["totalPrice"],
             );
             array_push($orders, $order);
         }

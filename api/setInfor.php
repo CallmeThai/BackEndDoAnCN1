@@ -11,7 +11,6 @@
     $address = $data["address"]; 
 
     $sql = "UPDATE `user` SET `fullname`='$fullname',`phone`='$phone',`email`='$email',`address`='$address' WHERE idUser = '$idUser'";
-    echo $sql;
     $result = $conn->query($sql);
 
     if($result) {

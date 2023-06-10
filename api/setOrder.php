@@ -31,25 +31,39 @@
             foreach ($products as  $value) {
                 $idProduct = $value['idProduct'] ;
                 $quantityProduct = $value['quantityProductCart'];
+                $size = $value['size'];
     
-                $sql = "INSERT INTO detailOrder (`idOrder`, `idProduct`, `quantityProduct`) VALUES ($idOrder, '$idProduct', '$quantityProduct')";
+                $sql = "INSERT INTO detailOrder (`idOrder`, `idProduct`, `size` ,`quantityProduct`) VALUES ($idOrder, '$idProduct', '$size' ,'$quantityProduct')";
                 $result = $conn->query($sql);
     
                 if($result) {
                     $sqlDeleteCart = "DELETE FROM cart WHERE idUser = $idUser";
                     $resultDeleteCart = $conn->query($sqlDeleteCart); 
                     if($resultDeleteCart) {
+                        // Select Quantity Size
+                        $sizeFull = 'size'.$size;
+                        $sqlSelectQuantitySize = "SELECT * FROM product WHERE idProduct = '$idProduct' AND $sizeFull";
+                        $resultSelectQuantitySize = $conn->query($sqlSelectQuantitySize);
+                        while ($row = $resultSelectQuantitySize->fetch_assoc()) {
+                            $quantitySize = $row[$sizeFull];
+                        }
+
+                        //Update Quantity Size
+                        $value =  $quantitySize - $quantityProduct;
+                        $sqlUpdateQuantitySize = "UPDATE product SET $sizeFull = '$value' WHERE idProduct = '$idProduct'";
+                        $resultUpdateQuantitySize = $conn->query($sqlUpdateQuantitySize);
+
                         echo json_encode(array(
-                            "message" => "Đặt hàng thành công, chuyển hướng sau 3 giây",
                             "status" => "success",
                         ));
                     }                
                 } else {
                     echo json_encode(array(
-                        "message" => "Đặt hàng thất bại",
                         "status" => "fail",
                     ));
                 }
+                
+                
             }
         }
     }
