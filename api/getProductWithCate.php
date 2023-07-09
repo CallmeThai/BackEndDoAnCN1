@@ -1,8 +1,8 @@
 <?php
     include "DBConfig.php";    
 
-    // if(isset($_GET["idproduct"])) {
-    //     $idproduct = $_GET["idproduct"];
+    if(isset($_GET["idproduct"])) {
+        $idproduct = $_GET["idproduct"];
         $sql = "SELECT * FROM product WHERE idCategory = $idproduct";
         $result = $conn->query($sql);
 
@@ -38,7 +38,7 @@
             }
         }
         echo json_encode($productsRelated);
-    } else {
+    }else {
         echo json_encode([]);
     }
 

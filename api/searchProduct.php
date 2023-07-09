@@ -18,6 +18,8 @@
                 "nameProduct" => $row["nameProduct"],
                 "priceProduct" => number_format($row["priceProduct"]),
                 "imageProduct_1" => $row["imageProduct_1"],
+                "descriptionProduct" => $row["descriptionProduct"],
+                "viewProduct" => $row["viewProduct"]
                 );
                 array_push($products, $product);
             }
